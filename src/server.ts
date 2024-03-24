@@ -14,7 +14,7 @@ app.use(morgan('common'))
 app.use(helmet())
 app.use(compression())
 app.use(cors())
-app.use(postRoute)
+app.use("/api/v1/posts", postRoute)
 
 connectDB()
 

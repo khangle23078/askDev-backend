@@ -11,7 +11,7 @@ export class Post {
   title: string
 
   @Column()
-  content: JSON
+  content: string
 
   @OneToOne(() => PostImage, (postImage) => postImage.post, { cascade: true })
   @JoinColumn({ name: 'post_image_id' },)
@@ -23,8 +23,8 @@ export class Post {
   @UpdateDateColumn({ name: 'update_at' })
   updateAt: Date
 
-  @Column()
-  likes: number[]
+  // @Column()
+  // likes: number[]
 
   @BeforeInsert()
   @BeforeUpdate()
