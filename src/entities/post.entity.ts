@@ -1,6 +1,6 @@
 import { validateOrReject } from "class-validator";
 import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { PostImage } from "./post_image.entity";
+import { Image } from "./image.entity";
 
 @Entity({ name: 'posts' })
 export class Post {
@@ -13,9 +13,9 @@ export class Post {
   @Column()
   content: string
 
-  @OneToOne(() => PostImage, (postImage) => postImage.post, { cascade: true })
-  @JoinColumn({ name: 'post_image_id' },)
-  image: PostImage
+  @OneToOne(() => Image, (image) => image.post, { cascade: true })
+  @JoinColumn({ name: 'image' },)
+  image: Image
 
   @CreateDateColumn({ name: 'create_at' })
   createAt: Date
@@ -23,8 +23,8 @@ export class Post {
   @UpdateDateColumn({ name: 'update_at' })
   updateAt: Date
 
-  // @Column()
-  // likes: number[]
+  @Column()
+  likes: number
 
   @BeforeInsert()
   @BeforeUpdate()

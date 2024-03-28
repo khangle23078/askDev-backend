@@ -3,7 +3,8 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import compression from 'compression'
 import cors from 'cors'
-import postRoute from './routes/post.route'
+import postRoute from "./routes/post.route"
+import authRoute from './routes/auth.route'
 import { connectDB } from './configs/typeorm.config'
 
 const app: Application = express()
@@ -15,7 +16,7 @@ app.use(helmet())
 app.use(compression())
 app.use(cors())
 app.use("/api/v1/posts", postRoute)
-
+app.use("/api/v1/auth", authRoute)
 connectDB()
 
 const PORT = process.env.PORT || 8001
