@@ -1,11 +1,11 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { UserSocialLink } from "./user_social_link.entity";
-import { Image } from "./image.entity";
+import bcrypt from 'bcryptjs';
 import { IsEmail, IsNotEmpty, Length, validateOrReject } from "class-validator";
-import bcrypt from 'bcryptjs'
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Image } from "./image.entity";
+import { UserSocialLink } from "./user_social_link.entity";
 
 @Entity({ name: 'users' })
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -44,6 +44,10 @@ export class User {
   async hashPassword(): Promise<string> {
     const salt = await bcrypt.genSalt(10)
     return this.password = await bcrypt.hash(this.password, salt)
+  }
+
+  static comparePassword(hashedpassword: string, newPassword: string) {
+    return bcrypt.compare(newPassword, hashedpassword)
   }
 
   @BeforeInsert()

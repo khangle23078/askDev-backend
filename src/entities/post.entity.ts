@@ -1,9 +1,9 @@
 import { validateOrReject } from "class-validator";
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Image } from "./image.entity";
 
 @Entity({ name: 'posts' })
-export class Post {
+export class Post extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 

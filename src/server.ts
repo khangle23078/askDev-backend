@@ -6,7 +6,7 @@ import cors from 'cors'
 import postRoute from "./routes/post.route"
 import authRoute from './routes/auth.route'
 import { connectDB } from './configs/typeorm.config'
-
+import 'dotenv/config'
 const app: Application = express()
 
 app.use(express.json({ limit: '50mb' }))
@@ -19,7 +19,7 @@ app.use("/api/v1/posts", postRoute)
 app.use("/api/v1/auth", authRoute)
 connectDB()
 
-const PORT = process.env.PORT || 8001
+const PORT = process.env.PORT || 5001
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}!!`);
 })

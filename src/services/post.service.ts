@@ -1,12 +1,9 @@
-import { dataSouce } from "./../configs/typeorm.config"
 import { Post } from "./../entities/post.entity"
 
-const postRepository = dataSouce.getRepository(Post)
-
 export const getAll = () => {
-  return postRepository.find()
+  return Post.find()
 }
 
 export const getById = (post_id: number) => {
-  return postRepository.findOneBy({ id: post_id })
+  return Post.findOneBy({ id: post_id })
 }
