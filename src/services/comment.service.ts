@@ -14,3 +14,7 @@ export const getAll = (postId: number) => {
     }
   })
 }
+
+export const deleteById = (postId: number) => {
+  return PostComment.delete(postId)
+}

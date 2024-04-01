@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "http-status";
 import { User } from "../entities/user.entity";
 import { getById } from "../services/post.service";
-import { getAll, insert } from "../services/comment.service";
+import { deleteById, getAll, insert } from "../services/comment.service";
 
 export const getComments = async (req: Request, res: Response) => {
   try {
@@ -46,7 +46,23 @@ export const createComment = async (req: Request, res: Response) => {
       data: comment
     })
   } catch (error) {
-    res.status(INTERNAL_SERVER_ERROR).json({
+    return res.status(INTERNAL_SERVER_ERROR).json({
+      status: INTERNAL_SERVER_ERROR,
+      message: error
+    })
+  }
+}
+
+export const deleteComment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await deleteById(parseInt(id))
+    return res.status(OK).json({
+      status: OK,
+      message: "Xóa comment thành công"
+    })
+  } catch (error) {
+    return res.status(INTERNAL_SERVER_ERROR).json({
       status: INTERNAL_SERVER_ERROR,
       message: error
     })
