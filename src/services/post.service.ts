@@ -29,6 +29,10 @@ export const insert = (userId: number, data: any) => {
   return Post.save(newPost)
 }
 
+export const updateById = (postId: number, data: any) => {
+  return Post.update(postId, data)
+}
+
 export const deleteById = (postId: number) => {
   return Post.delete(postId)
 }
