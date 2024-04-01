@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
 import { IsEmail, IsNotEmpty, Length, validateOrReject } from "class-validator";
-import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Image } from "./image.entity";
 import { UserSocialLink } from "./user_social_link.entity";
+import { Post } from './post.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -31,6 +32,9 @@ export class User extends BaseEntity {
   @OneToOne(() => UserSocialLink, (userSocialLink) => userSocialLink.user)
   @JoinColumn({ name: 'social_links' })
   socialLinks: UserSocialLink
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[]
 
   @Column({ name: 'create_at' })
   @CreateDateColumn()
