@@ -37,11 +37,10 @@ export const getPost = async (req: Request, res: Response) => {
 export const createPost = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const post = await insert(parseInt(userId), req.body)
+    await insert(parseInt(userId), req.body)
     res.status(CREATED).json({
       status: CREATED,
       message: 'Tạo bài viết thành công!',
-      post: post
     })
   } catch (error) {
     return res.status(INTERNAL_SERVER_ERROR).json({

@@ -4,6 +4,7 @@ import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entit
 import { Image } from "./image.entity";
 import { UserSocialLink } from "./user_social_link.entity";
 import { Post } from './post.entity';
+import { PostComment } from './post_comment.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
@@ -35,6 +36,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[]
+
+  @OneToMany(() => PostComment, (postCommment) => postCommment.user)
+  comments: PostComment[]
 
   @Column({ name: 'create_at' })
   @CreateDateColumn()
