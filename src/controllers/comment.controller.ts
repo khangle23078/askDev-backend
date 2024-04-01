@@ -1,8 +1,24 @@
 import { Request, Response } from "express";
-import { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND } from "http-status";
+import { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "http-status";
 import { User } from "../entities/user.entity";
 import { getById } from "../services/post.service";
-import { insert } from "../services/comment.service";
+import { getAll, insert } from "../services/comment.service";
+
+export const getComments = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+    const comments = await getAll(parseInt(postId))
+    return res.status(OK).json({
+      status: OK,
+      data: comments
+    })
+  } catch (error) {
+    return res.status(INTERNAL_SERVER_ERROR).json({
+      staus: INTERNAL_SERVER_ERROR,
+      message: error
+    })
+  }
+}
 
 export const createComment = async (req: Request, res: Response) => {
   try {
