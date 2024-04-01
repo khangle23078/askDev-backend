@@ -6,6 +6,7 @@ import cors from 'cors'
 import postRoute from "./routes/post.route"
 import authRoute from './routes/auth.route'
 import commentRoute from './routes/comment.route'
+import replyCommentRoute from './routes/reply_comment.route'
 import { connectDB } from './configs/typeorm.config'
 import 'dotenv/config'
 const app: Application = express()
@@ -19,6 +20,7 @@ app.use(cors())
 app.use("/api/v1/posts", postRoute)
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/comments", commentRoute)
+app.use("/api/v1/reply-comments", replyCommentRoute)
 connectDB()
 
 const PORT = process.env.PORT || 5001

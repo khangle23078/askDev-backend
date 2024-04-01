@@ -1,7 +1,8 @@
-import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Post } from "./post.entity";
 import { User } from "./user.entity";
 import { validateOrReject } from "class-validator";
+import { ReplyComment } from "./reply_comment.entity";
 
 @Entity({ name: 'post_comments' })
 export class PostComment extends BaseEntity {
@@ -18,6 +19,9 @@ export class PostComment extends BaseEntity {
   @ManyToOne(() => User, (user) => user.comments)
   @JoinColumn({ name: 'user_id' })
   user: User
+
+  @OneToMany(() => ReplyComment, (replyComment) => replyComment.commnent)
+  replyComment: ReplyComment[]
 
   @CreateDateColumn()
   createAt: Date

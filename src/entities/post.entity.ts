@@ -1,9 +1,9 @@
 import { validateOrReject } from "class-validator";
 import { BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Image } from "./image.entity";
 import { PostImage } from "./post_image.entity";
 import { User } from "./user.entity";
 import { PostComment } from "./post_comment.entity";
+import { ReplyComment } from "./reply_comment.entity";
 
 @Entity({ name: 'posts' })
 export class Post extends BaseEntity {
@@ -26,6 +26,9 @@ export class Post extends BaseEntity {
 
   @OneToMany(() => PostComment, (postcomment) => postcomment.post)
   comments: PostComment[]
+
+  @OneToMany(() => ReplyComment, (replyComment) => replyComment.post)
+  replyComments: ReplyComment[]
 
   @Column({ name: 'likes', default: 0 })
   likes: number
