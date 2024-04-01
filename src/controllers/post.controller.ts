@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAll, getById, insert } from "./../services/post.service";
+import { deleteById, getAll, getById, insert } from "./../services/post.service";
 import httpStatus from "http-status";
 
 export const getPosts = async (req: Request, res: Response) => {
@@ -41,6 +41,31 @@ export const createPost = async (req: Request, res: Response) => {
       status: httpStatus.CREATED,
       message: 'Tạo bài viết thành công!',
       post: post
+    })
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      message: error
+    })
+  }
+}
+
+export const deletePost = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const post = await getById(parseInt(id))
+
+    if (!post) {
+      return res.status(httpStatus.NOT_FOUND).json({
+        status: httpStatus.NOT_FOUND,
+        message: 'Không tìm thấy bài viết'
+      })
+    }
+
+    await deleteById(parseInt(id))
+    return res.status(httpStatus.OK).json({
+      status: httpStatus.OK,
+      message: 'Xóa bài viết thành công!'
     })
   } catch (error) {
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
